@@ -1,55 +1,62 @@
-# Günlük Planlayıcı
+# Daily Planner
 
-Günlük yapılacaklar listesi ve takvimden etkinlik planlama için basit bir web
-uygulaması. Kurulum, derleme adımı veya sunucu gerektirmez — `index.html`
-dosyasını tarayıcıda açmak yeterli.
+A small web app for keeping a daily to-do list and planning events on a calendar.
+No install, no build step, no server — just open `index.html` in a browser.
 
-## Özellikler
+## Features
 
-- **Takvim** — aylık görünüm, Pazartesi başlangıçlı. Bir güne tıklayınca o günün
-  paneli açılır. Ok tuşlarıyla da gün gün gezilebilir.
-- **Yapılacaklar** — seçili güne görev ekleme, tamamlandıkça tik atma, silme.
-- **Etkinlikler** — saat, başlık ve kategori (İş / Kişisel / Sağlık) ile etkinlik
-  planlama. Liste saate göre sıralanır.
-- **Günlük ilerleme** — tamamlanma yüzdesi, ölçer ve özet sayaçlar. Gün bittiğinde
-  ölçer yeşile döner.
-- **Takvim göstergeleri** — her gün hücresinde bekleyen görev sayısı rozeti ve o
-  güne ait etkinliklerin kategori renkleri.
-- **Açık / koyu tema** — işletim sistemi ayarını izler, düğmeyle değiştirilebilir.
+- **Calendar** — monthly view, weeks start on Monday. Click a day to open its
+  panel; arrow keys move the selection one day (or one week) at a time.
+- **To-dos** — add tasks to the selected day, check them off as you finish, delete
+  them.
+- **Events** — schedule events with a time, a title and a category (Work /
+  Personal / Health). The list stays sorted by time.
+- **Daily progress** — a completion percentage, a meter and three summary counters.
+  The meter turns green once every task for the day is done.
+- **Calendar indicators** — each day cell shows a badge with the number of pending
+  tasks and a colored dot per event category on that day.
+- **Light / dark theme** — follows the operating system setting and can be
+  switched with the button in the header. Your choice is remembered.
 
-## Çalıştırma
+## Running it
 
-`index.html` dosyasına çift tıklayın. İsterseniz yerel bir sunucuyla da açabilirsiniz:
+Double-click `index.html`. If you prefer a local server:
 
 ```bash
 python -m http.server 8000
 # http://localhost:8000
 ```
 
-## Veri nerede saklanıyor?
+## Where the data lives
 
-Tüm görev ve etkinlikler **tarayıcınızın `localStorage`'ında** tutulur
-(`gunluk-planlayici-v1` anahtarı). Bunun pratik sonuçları:
+All tasks and events are kept in your browser's **`localStorage`** (under the key
+`gunluk-planlayici-v1`). Practical consequences:
 
-- Veri yalnızca o tarayıcıda ve o bilgisayarda durur; cihazlar arasında eşitlenmez.
-- Tarayıcı geçmişini / site verilerini temizlerseniz kayıtlar silinir.
-- Sunucu olmadığı için birden fazla kişi aynı listeyi paylaşamaz.
+- The data stays in that one browser on that one machine; it does not sync across
+  devices.
+- Clearing your browsing history or site data deletes it.
+- There is no server, so two people cannot share the same list.
 
-Ortak kullanım veya cihazlar arası eşitleme gerekirse bir arka uç (ör. Firebase,
-Supabase) eklenmesi gerekir.
+Shared use or cross-device sync would require adding a backend (Firebase,
+Supabase, or similar).
 
-## Dosyalar
+## Files
 
-| Dosya | İçerik |
+| File | Contents |
 |---|---|
-| `index.html` | Sayfa yapısı |
-| `styles.css` | Renk rolleri (açık/koyu), yerleşim ve bileşen stilleri |
-| `app.js` | Durum yönetimi, takvim üretimi, localStorage |
+| `index.html` | Page structure |
+| `styles.css` | Color roles (light/dark), layout and component styles |
+| `app.js` | State handling, calendar generation, localStorage |
 
-## Erişilebilirlik ve renk notları
+## Accessibility and color notes
 
-- Kategori renkleri hem açık hem koyu yüzey için ayrı ayrı seçildi; renk körlüğü
-  ayrımı ve kontrast kontrollerinden geçti.
-- Kategori adı her zaman yazıyla da gösterilir — hiçbir bilgi yalnızca renge
-  bağlı değil.
-- Tüm etkileşimli öğeler klavyeyle kullanılabilir ve odak halkası taşır.
+- Category colors were picked separately for the light and the dark surface, and
+  both sets pass color-blind separation and contrast checks.
+- The category name is always spelled out next to its dot — no information is
+  carried by color alone.
+- Every interactive element is keyboard-reachable and shows a focus ring.
+
+## Note on language
+
+The interface and the source comments are in Turkish; this document is the
+English one.
