@@ -1,5 +1,5 @@
 # Daily Planner
-
+ 
 A small web app for keeping a daily to-do list and planning events on a calendar.
 No install, no build step, no server — just open `index.html` in a browser.
 
