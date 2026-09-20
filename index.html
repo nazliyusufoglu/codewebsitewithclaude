@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Günlük Planlayıcı</title>
+<link rel="stylesheet" href="styles.css">
+<script>
+  // Tema, sayfa boyanmadan uygulanır (yanıp sönmeyi önler).
+  try {
+    var saved = localStorage.getItem('gunluk-planlayici-theme');
+    if (saved) document.documentElement.dataset.theme = saved;
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <h1>Günlük Planlayıcı</h1>
+  </div>
+  <div class="header-actions">
+    <button type="button" class="btn btn-ghost" id="today-btn">Bugüne dön</button>
+    <button type="button" class="btn btn-icon" id="theme-toggle" aria-label="Koyu temaya geç">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- ——— Takvim ——— -->
+  <section class="panel" aria-labelledby="calendar-title">
+    <div class="panel-head">
+      <h2 id="calendar-title" class="month-title">&nbsp;</h2>
+      <div class="month-nav">
+        <button type="button" class="btn btn-icon" id="prev-month" aria-label="Önceki ay">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="btn btn-icon" id="next-month" aria-label="Sonraki ay">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="weekdays" aria-hidden="true">
+      <span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span>
+      <span>Cum</span><span>Cmt</span><span>Paz</span>
+    </div>
+
+    <div class="calendar-grid" id="calendar-grid"></div>
+
+    <div class="calendar-foot">
+      <ul class="legend" id="category-legend"></ul>
+      <p class="legend-note">Rakamlı rozet: o güne ait bekleyen görev sayısı.</p>
+    </div>
+  </section>
+
+  <!-- ——— Seçili gün ——— -->
+  <section class="panel" aria-labelledby="day-title">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow" id="day-eyebrow">Seçili gün</p>
+        <h2 id="day-title">&nbsp;</h2>
+      </div>
+    </div>
+
+    <!-- Hero: günün tamamlanma oranı -->
+    <div class="hero">
+      <div class="hero-row">
+        <p class="hero-figure"><span id="progress-value">0</span><span class="hero-unit">%</span></p>
+        <p class="hero-caption" id="progress-caption">Henüz görev yok</p>
+      </div>
+      <div class="meter" id="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="progress-caption">
+        <div class="meter-fill" id="meter-fill"></div>
+      </div>
+    </div>
+
+    <ul class="stat-row">
+      <li class="stat-tile">
+        <p class="stat-label">Toplam görev</p>
+        <p class="stat-value" id="stat-total">0</p>
+      </li>
+      <li class="stat-tile">
+        <p class="stat-label">Tamamlanan</p>
+        <p class="stat-value" id="stat-done">0</p>
+      </li>
+      <li class="stat-tile">
+        <p class="stat-label">Etkinlik</p>
+        <p class="stat-value" id="stat-events">0</p>
+      </li>
+    </ul>
+
+    <!-- Yapılacaklar -->
+    <div class="block">
+      <h3 class="block-title">Yapılacaklar</h3>
+      <form class="form form-task" id="task-form">
+        <label class="sr-only" for="task-input">Yeni görev</label>
+        <input type="text" id="task-input" placeholder="Ne yapılacak?" autocomplete="off" maxlength="160" required>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+      </form>
+      <ul class="list" id="task-list"></ul>
+    </div>
+
+    <!-- Etkinlikler -->
+    <div class="block">
+      <h3 class="block-title">Etkinlikler</h3>
+      <form class="form form-event" id="event-form">
+        <label class="sr-only" for="event-time">Saat</label>
+        <input type="time" id="event-time" required>
+        <label class="sr-only" for="event-title">Etkinlik adı</label>
+        <input type="text" id="event-title" placeholder="Etkinlik adı" autocomplete="off" maxlength="160" required>
+        <label class="sr-only" for="event-category">Kategori</label>
+        <select id="event-category"></select>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+      </form>
+      <ul class="list" id="event-list"></ul>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

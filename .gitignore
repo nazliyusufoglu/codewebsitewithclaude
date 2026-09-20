@@ -1,0 +1,12 @@
+# İşletim sistemi
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editör
+.vscode/
+.idea/
+*.swp
+
+# Bağımlılıklar (ileride eklenirse)
+node_modules/
